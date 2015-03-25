@@ -27,11 +27,36 @@ drzewo_t wstaw_do_drzewa(drzewo_t t, n_gram *gram, int _rzad_n_gramu,  int cmp(c
 			t->gram_drzewo->zliczenia_sufiks++;
 			gram->zliczenia_sufiks = t->gram_drzewo->zliczenia_sufiks;
 		}
+		
                 return t;
         }
 
 }
 
+/*drzewo_t popraw_dane_statystyczne(drzewo_t t, n_gram *gram, int _rzad_n_gramu,  int cmp(const void *, const void *, int rzad_n_gramu)){
+
+	if( cmp( t->gram_drzewo, gram, _rzad_n_gramu) > 0 ){
+                t->lewy = wstaw_do_drzewa( t->lewy, gram, _rzad_n_gramu ,cmp);
+                return t;
+        }
+        else if( cmp( t->gram_drzewo, gram, _rzad_n_gramu) < 0){
+                t->prawy = wstaw_do_drzewa( t->prawy, gram,_rzad_n_gramu ,cmp);
+                return t;
+        }
+        else{*/
+    /*            if(gram->zliczenia_prefiks > t->gram_drzewo->zliczenia_prefiks);
+			t->gram_drzewo->zliczenia_prefiks = gram->zliczenia_prefiks;
+                if(gram->zliczenia_prefiks < t->gram_drzewo->zliczenia_prefiks);
+			gram->zliczenia_prefiks = t->gram_drzewo->zliczenia_prefiks;
+
+                if(strcmp( t->gram_drzewo->sufiks, gram->sufiks) == 0){
+                        gram->zliczenia_sufiks = t->gram_drzewo->zliczenia_sufiks;
+                }*//*
+                return t;
+        }
+
+}
+*/
 int cmp(const void *a, const void *b, int rzad_n_gramu){
 	int i;
         n_gram *aa = (n_gram*)a;

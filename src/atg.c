@@ -54,6 +54,17 @@ n_gram stworz_dane_o_n_gramie(n_gram *gram, atg_t *atg, int ile_slow, int nr_slo
         *gram = stworz_sufiks( gram,l_liter_sufiks);
         strcpy(gram->sufiks,atg[nr_slowa + i].slowo);
 
+	gram->zliczenia_prefiks = 1;
+	gram->zliczenia_sufiks = 1;
+
+	return *gram;
+}
+
+n_gram oblicz_prawdopodobienstwo(n_gram *gram, int l_n_gramow){
+	double a;
+	a = (gram->zliczenia_prefiks / l_n_gramow);
+	gram->p_wystapienia_sufiksu = (gram->zliczenia_sufiks/l_n_gramow);
+	gram->p_wystapienia_n_gramu = (gram->p_wystapienia_prefiksu * gram->p_wystapienia_sufiksu);
 	return *gram;
 }
 

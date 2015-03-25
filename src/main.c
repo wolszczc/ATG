@@ -24,7 +24,7 @@ char *usage2 =
 
 int main (int argc, char **argv){
 	int i,j,a;
-	int l_slow = 0; /*ile jest wszystkich słów */
+	int l_slow = 1; /*ile jest wszystkich słów */
 	int start_size = 100;
 	int zmienna_spr_p = 0;
 	int zmienna_spr_d = 0;
@@ -75,7 +75,7 @@ int main (int argc, char **argv){
 	}
 
 	
-	if( optind < argc && zmienna_spr_p == 0 && zmienna_spr_d == 0 ) { /**może być z tym problem, jak będzie kłopot z argumentami wywalić*/
+	if( optind < argc && zmienna_spr_p == 0 && zmienna_spr_d == 0 ) {/*może być z tym problem, jak będzie kłopot z argumentami wywalić*/
 		fprintf( stderr, "\nZłe parametry!\n" );
 		for( ; optind < argc; optind++ )
 			fprintf( stderr, "\t\"%s\"\n", argv[optind] );
@@ -98,8 +98,9 @@ int main (int argc, char **argv){
 				fprintf(stderr,"Nie mogę odczytać pliku: %s\n", argv[j]);
 			
 			atg = czytaj_slowa(in, &l_slow, &start_size,atg);
+			l_slow++;
 
-			/*for(i = 0;i<= l_slow; i++){
+			/*for(i = 1;i< l_slow; i++){
 				printf("%s %d %d\n ",atg[i].slowo,atg[i].index,atg[i].l_liter);
 			}*/
 			fclose(in);
@@ -120,6 +121,7 @@ int main (int argc, char **argv){
 		if( in == NULL)
                                 fprintf(stderr,"Nie mogę odczytać pliku: %s\n", ind);
 		atg = czytaj_slowa(in, &l_slow, &start_size,atg);
+		l_slow++;
 
 		for(j = 2; j < argc; j++){
                         FILE *in2 = fopen(argv[j],"r");
@@ -127,8 +129,9 @@ int main (int argc, char **argv){
                                 fprintf(stderr,"Nie mogę odczytać pliku: %s\n", argv[j]);
 
                         atg = czytaj_slowa(in2, &l_slow, &start_size, atg);
+			l_slow++;
 
-                        /*for(i = 0;i< l_slow; i++){    pomocnicze wypisanie słów
+                        /*for(i = 1;i< l_slow; i++){  
                                 printf("%s %d %d\n ",atg[i].slowo,atg[i].index,atg[i].l_liter);
                         }*/
                         fclose(in2);
@@ -150,23 +153,24 @@ int main (int argc, char **argv){
 		if( in == NULL)
 			fprintf(stderr,"Nie mogę odczytać pliku: %s\n", argv[j]);
 		atg = czytaj_slowa(in, &l_slow, &start_size, atg);
-	/*	for(i = 0;i< l_slow; i++){ 
+		l_slow++;
+		/*for(i = 1;i< l_slow; i++){ 
 			printf("%s %d %d\n ",atg[i].slowo, atg[i].index, atg[i].l_liter);
-		}
-	*/	fclose(in);
+		}*/
+		fclose(in);
 	}
 
 		
 /******************************tworzy tablice n_gramów*************************************************/
-	gram2 =(n_gram*)malloc(sizeof (n_gram) * (l_slow - inn));
+	gram2 =(n_gram*)malloc(sizeof (n_gram) * (l_slow - inn + 1));
 	if( gram2 == NULL){
                 fprintf(stderr, "Za mało pamięci\n");
                 exit(EXIT_FAILURE);
         }
-	for(i = 0; i<l_slow - inn; i++){
+	for(i = 1; i<l_slow - inn; i++){
 		gram2[i] = stworz_dane_o_n_gramie(gram2, atg, inn, i);
 		/**//*wypisywanie pomocnicze */
-	/*	for(j=0;j<inn;j++)
+		/*for(j=0;j<inn;j++)
 			printf("%s ",gram2[i].prefiks[j]);
 		printf("\n%s\n\n",gram2[i].sufiks);*/
 		/**//*wypisywanie*/
@@ -174,20 +178,35 @@ int main (int argc, char **argv){
 /******************************tworzy tablice n_gramów*************************************************/
 
 /******************************drzewo******************************************************************/
-	for(i = 0; i< l_slow - inn; i++){
+	for(i = 1; i< l_slow - inn ; i++){
 		drzewo = wstaw_do_drzewa(drzewo, &gram2[i], inn, cmp);
 	}
+/*	for(i = 1; i< l_slow - inn ; i++){
+		drzewo = popraw_dane_statystyczne(drzewo, &gram2[i], inn, cmp);
+	}
 
-/*	for(i = 0; i<l_slow - inn; i++){
+*/
+	for(i = 1; i< l_slow - inn; i++){
               for(j=0;j<inn;j++)
                         printf("%s ",gram2[i].prefiks[j]);
                 printf("  %d",gram2[i].zliczenia_prefiks);
                 printf("\n%s",gram2[i].sufiks);
                 printf("  %d\n\n",gram2[i].zliczenia_sufiks);
-        }*/
+        }
 	
 
 /******************************drzewo******************************************************************/
+/******************************prawdopodobieństwo******************************************************************/
+/*	for(i = 1; i<l_slow - inn; i++){
+		gram2[i] = oblicz_prawdopodobienstwo(&gram2[i], l_slow - inn - 1);
+
+		for(j=0;j<inn;j++)
+			printf("%s ",gram2[i].prefiks[j]);
+		printf(" %.25f\n%s %.25f\n\n",gram2[i].p_wystapienia_prefiksu ,gram2[i].sufiks, gram2[i].p_wystapienia_sufiksu);
+
+	}
+
+*/
 
 /******************************tworzy tablice n_gramów, wylosowanych***********************************/
 /*	gram =(n_gram*)malloc(sizeof (n_gram) * inl);
@@ -208,7 +227,7 @@ int main (int argc, char **argv){
 	}*/
 /******************************tworzy tablice n_gramów, wylosowanych***********************************/
 
-/*	zwolnij_pamiec(atg,l_slow);*/	
+/*	zwolnij_pamiec(atg,l_slow);	*/
 /*	zwolnij_n_gram(gram2, l_slow - inn , inn);*/ /* nie działa*/
 /*	zwolnij_n_gram(gram, inl, inn);*/
 /*	free(drzewo);	*/

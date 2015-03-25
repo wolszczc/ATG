@@ -8,7 +8,7 @@ atg_t *czytaj_slowa(FILE *in, int *l_slow, int *start_size, atg_t *atg){
 	
 	int dlugosc_slowa_tym;
 	int i;
-	char slowo_tym[100]; /* słowo tymczasowe- przechwouje słowa z wejścia*/
+	char slowo_tym[1024]; /* słowo tymczasowe- przechwouje słowa z wejścia*/
 
 	i = *l_slow;
 	if( atg == NULL){
@@ -17,27 +17,27 @@ atg_t *czytaj_slowa(FILE *in, int *l_slow, int *start_size, atg_t *atg){
 	}
 
 	if (in != NULL){
-		while(fscanf(in,"%s",slowo_tym) != EOF){
+		while(fscanf(in,"%s", slowo_tym) != EOF){
 			dlugosc_slowa_tym = strlen(slowo_tym);
-			if(dlugosc_slowa_tym > 100){
-				fprintf(stderr, "Zbyt długie słowa (dopuszczalna długość słowa = 100)\n");
+			if(dlugosc_slowa_tym >= 1024){
+				fprintf(stderr, "Zbyt długie słowa (dopuszczalna długość słowa = 1024)\n");
 				exit(EXIT_FAILURE);
 			}
 			if(i >= *start_size - 10){
-				atg = realloc_tab_slow(atg,*start_size);
+				atg = realloc_tab_slow(atg, *start_size);
 				*start_size *= 2;
 			}
 
 			atg[i] = stworz_slowo(atg, dlugosc_slowa_tym);
 			atg[i].l_liter = dlugosc_slowa_tym;
-			strcpy(atg[i].slowo,slowo_tym);
-			atg[i].index = (i + 1);
+			strcpy(atg[i].slowo, slowo_tym);
+			atg[i].index = (i);
 			/*************sprawdzenie tablicy słów***********/
 			/*printf("%s %d %d\n",atg[i].slowo, atg[i].l_liter,atg[i].index);*/	
 			/*************sprawdzenie***********/
 			i++;
 			slowo_tym[0] = '\0';	
-			printf("%s\n\n",atg[0].slowo);
+			/*printf("%s\n\n",atg[0].slowo);*/
 		}
 		*l_slow = i - 1;
 		
@@ -51,7 +51,7 @@ atg_t *czytaj_slowa(FILE *in, int *l_slow, int *start_size, atg_t *atg){
 void zapisz_slowa(atg_t *atg, FILE *in, int *l_slow){
 	int i;
 	int j;
-	for(i = 0; i<= *l_slow; i++){
+	for(i = 1; i< *l_slow; i++){
 		fprintf(in,"%s ", atg[i].slowo);
 /*		if(j == 10){
 			fprintf(in,"\n");
