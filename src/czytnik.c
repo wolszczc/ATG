@@ -61,6 +61,27 @@ void zapisz_slowa(atg_t *atg, FILE *in, int *l_slow){
 	}
 }
 
+void zapisz_prawdopodobienstow_n_gram(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie){
+	int i;
+	int j;
+	for(i = 1;i<liczba_n_gramow;i++){
+		for(j = 0; j<liczba_slow_w_prefiksie;j++)
+			fprintf(in,"%s ",gram[i].prefiks[j]);
+		fprintf(in," %.25f\n %s  %.25f\n\n",gram[i].p_wystapienia_prefiksu, gram[i].sufiks, gram[i].p_wystapienia_sufiksu);
+	}
+
+}
+
+void zapisz_dane_statystyczne_n_gram(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie){
+	int i;
+        int j;
+        for(i = 1;i<liczba_n_gramow;i++){
+                for(j = 0; j<liczba_slow_w_prefiksie;j++)
+                        fprintf(in,"%s ",gram[i].prefiks[j]);
+                fprintf(in," %d\n %s  %d\n\n",gram[i].zliczenia_prefiks, gram[i].sufiks, gram[i].zliczenia_sufiks);
+        }
+}
+
 atg_t stworz_slowo(atg_t *atg, int liczba_liter){
 
 	if(atg != NULL){
