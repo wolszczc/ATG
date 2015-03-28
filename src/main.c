@@ -15,7 +15,7 @@ char *usage =
 	"-d dopisanie danych do pliku pośredniego\n"
 	"-m pobiera plik pośredni ( w formacie txt)\n";
 char *usage2 =
-	"-g generuje tekst\n"
+	"-g generuje tekst (1 - generuj cały tekst, 2 - generuj z parametrem -s lub -a, domyślnie 1)\n"
 	"-s parametr służący do generacji tekstu o zadanej przez użytkownika liczbie słów\n"
 	"-a parametr służący do generacji tekstu o zadanej przez użytkownika liczbie akapitów\n"
 	"-n rząd n-gramu ( domyśnie 2 )\n" 
@@ -36,7 +36,9 @@ int main (int argc, char **argv){
 	char *progname = argv[0];
 	int inn = 2;
 	int inl = 100;
-
+	int ing = 1;
+	
+	FILE *in_n_gram;
 	FILE *in_staty1;
 	FILE *in_staty2;
 
@@ -44,10 +46,8 @@ int main (int argc, char **argv){
 	drzewo_t drzewo = NULL;
 	n_gram *gram = NULL;
 	n_gram *gram2 = NULL;
+	n_gram *gram3 = NULL;
 	
-/*	gram2->zliczenia_prefiks = 0;
-	gram2->zliczenia_sufiks = 0;
-*/	
 	while((opt = getopt (argc,argv,"p:d:m:g:s:a:n:l:h")) !=-1){ 
 		switch(opt){
 		case 'p': /*pobiera do programu pliki z tekstem bazowym*/
@@ -60,6 +60,9 @@ int main (int argc, char **argv){
 			break;
 		case 'm': /*pobiera plik pośredni*/
 			inm = optarg;
+			break;
+		case 'g': /*generacja tekstu*/
+			ing = atoi(optarg);
 			break;
 		case 'n': /*rząd n-gramu*/
 			inn = atoi(optarg);
@@ -84,6 +87,11 @@ int main (int argc, char **argv){
 			fprintf( stderr, "\t\"%s\"\n", argv[optind] );
 		fprintf( stderr, usage, progname );
 		fprintf(stderr, usage2, progname);
+		exit( EXIT_FAILURE );
+	}
+
+	if((ing !=1) && (ing !=2)){
+		fprintf(stderr,"Zły parametr g, możliwy do wyboru 1 lub 2\n");
 		exit( EXIT_FAILURE );
 	}
 	
@@ -178,18 +186,22 @@ int main (int argc, char **argv){
 		printf("\n%s %d\n\n",gram2[i].sufiks,gram2[i].index);
 */		/**//*wypisywanie*/
 	}
+	in_n_gram = fopen("../gen/podstawowe_n_gramy/podstawowe_n_gramy.txt","w");
+	zapisz_wylosowane_n_gramy(gram2, in_n_gram, l_slow - inn, inn);
+	fclose(in_n_gram);
 /******************************tworzy podstawową tablice n_gramów*************************************/
 /******************************drzewo+zapis statów do pliku********************************************/
 	for(i = 1; i< l_slow - inn ; i++){
 		drzewo = wstaw_do_drzewa(drzewo, &gram2[i], inn, cmp);
 	}
+	printf("AAAAAAAAAA\n");
 	for(i = 1; i< l_slow - inn ; i++){
 		if(gram2[i].zliczenia_prefiks > 1)
 			szukaj_n_gramow(drzewo, &gram2[i], inn, cmp);
 	}
 
 	
-	in_staty1 = fopen("../gen/dane_statystyczne_o_n_gramie_podstawowym.txt","w");
+	in_staty1 = fopen("../gen/podstawowe_n_gramy/dane_statystyczne_o_n_gramie_podstawowym.txt","w");
 	if(in_staty1 == NULL){
 		fprintf(stderr,"Nie mogę zapisać do pliku \"dane_statystyczne_o_n_gramie_podstawowym.txt\" ");
 		exit(EXIT_FAILURE);
@@ -197,16 +209,15 @@ int main (int argc, char **argv){
 	
 	zapisz_dane_statystyczne_n_gram(gram2, in_staty1, l_slow - inn, inn); /*zapisanie danych statystycznych(liczba wystąpień prefiksów i sufisków) przed generacją */
 	fclose(in_staty1);
-/*	for(i = 1; i< l_slow - inn; i++){
+	for(i = 1; i< l_slow - inn; i++){
               for(j=0;j<inn;j++)
                         printf("%s ",gram2[i].prefiks[j]);
                 printf("  %d",gram2[i].zliczenia_prefiks);
                 printf("\n%s",gram2[i].sufiks);
                 printf("  %d\n\n",gram2[i].zliczenia_sufiks);
         }
-*/	
+	
 
-	printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 /******************************drzewo+zapis statów do pliku********************************************/
 /******************************prawdopodobieństwo 1 + zapis********************************************/
 	for(i = 1; i<l_slow - inn; i++){
@@ -218,9 +229,9 @@ int main (int argc, char **argv){
 */
 	}
 	
-	in_staty2 = fopen("../gen/prawdopodobienstwo_wystąpienia_n_gram_podstawowy.txt","w");
+	in_staty2 = fopen("../gen/podstawowe_n_gramy/prawdopodobienstwo_wystąpienia_n_gram_podstawowy.txt","w");
 	if(in_staty2 == NULL){
-		fprintf(stderr,"Nie mogę zapisać do pliku \"dane_statystyczne_o_n_gramie_podstawowym.txt\" ");
+		fprintf(stderr,"Nie mogę zapisać do pliku \"prawdopodobienstwo_wystąpienia_n_gram_podstawowy.txt\" ");
 		exit(EXIT_FAILURE);
 	}
 
@@ -229,51 +240,74 @@ int main (int argc, char **argv){
 
 /******************************prawdopodobieństwo 1 + zapis********************************************/
 /******************************tworzy tablice n_gramów, wylosowanych***********************************/
-/*	gram =(n_gram*)malloc(sizeof (n_gram) * inl);
-	if( gram == NULL){
-		fprintf(stderr, "Za mało pamięci\n");
-                exit(EXIT_FAILURE);
-	}
-	srand(time(NULL));
-	for(i = 0; i<inl ;i++){
-		a = (rand() % l_slow) - inn;
-	        while(a < inn)
-        	        a = (rand() % l_slow) - inn;
-		gram[i] = stworz_n_gram(gram, atg, inn, i, a);
-*/	/*	for(j = 0;j<inn;j++){
-			printf("%s ",gram[i].prefiks[j]);	
+	if(ing == 2){/*losowo wybiera n_gramy*/
+		FILE *in = fopen("../gen/losowe_n_gramy/wylosowane_n_gramy.txt","w");
+		FILE *in2 = fopen("../gen/losowe_n_gramy/dane_statystyczne_wylosowanych_n_gramow.txt","w");
+		FILE *in3 = fopen("../gen/losowe_n_gramy/prawdopodobieństwo_wystąpienia_wylosowanego_n_gramu.txt","w");
+		gram3 =(n_gram*)malloc(sizeof (n_gram) * inl);
+		if( gram3 == NULL){
+			fprintf(stderr, "Za mało pamięci\n");
+       		        exit(EXIT_FAILURE);
 		}
-		printf("\n%s\n\n",gram[0].sufiks);	
-	}*/
-/******************************tworzy tablice n_gramów, wylosowanych***********************************/
-/******************************tworzy tablice n_gramów, wylosowanych***********************************/
-/*	gram =(n_gram*)malloc(sizeof (n_gram) * inl);
-	if( gram == NULL){
-		fprintf(stderr, "Za mało pamięci\n");
-                exit(EXIT_FAILURE);
-	}
-	srand(time(NULL));
-	for(i = 0; i<inl ;i++){
-		a = (rand() % l_slow) - inn;
-	        while(a < inn)
-        	        a = (rand() % l_slow) - inn;
-		gram[i] = stworz_n_gram(gram, atg, inn, i, a);
-	*//*	for(j = 0;j<inn;j++){
-			printf("%s ",gram[i].prefiks[j]);	
-		}
-		printf("\n%s\n\n",gram[0].sufiks);*/	
-	/*}*/
-/******************************tworzy tablice n_gramów, wylosowanych***********************************/
-	for(j = 1; j< l_slow - inn - 1; j++){
-		if(gram2[j].zliczenia_prefiks > 1){
-			for(i = 0; i<gram2[j].zliczenia_prefiks; i++)
-				printf("%d\n", gram2[j].wsk_na_sufiks[i]);
-			printf("\n");
+		srand(time(NULL));
+		for(i = 1; i<inl ;i++){
+			a = (rand() % l_slow) - inn;
+		        while(a < inn)
+        		        a = (rand() % l_slow) - inn;
+		
+			sleep(1);
+			gram3[i] = stworz_n_gram(gram3, gram2, inn, i, a);
+/*			for(j = 0;j<inn;j++){
+				printf("%s ",gram3[i].prefiks[j]);	
 			}
+			printf("\n%s\n\n",gram3[i].sufiks);		
+*/		
+		gram3[i] = oblicz_prawdopodobienstwo(&gram3[i], inl);
+		}
+		zapisz_prawdopodobienstow_n_gram(gram3, in3, inl, inn);
+		fclose(in3);
+		zapisz_dane_statystyczne_n_gram(gram3, in2, inl, inn);
+		fclose(in2);
+		zapisz_wylosowane_n_gramy(gram3, in, inl, inn);
+		fclose(in);
 	}
-/*	zwolnij_pamiec(atg,l_slow);	*/
-/*	zwolnij_n_gram(gram2, l_slow - inn , inn);*/ /* nie działa*/
-/*	zwolnij_n_gram(gram, inl, inn);*/
+
+/******************************tworzy tablice n_gramów, wylosowanych***********************************/
+/******************************tworzy tablice n_gramów, wszystko***************************************/
+	else if(ing == 1){/*tworzy nowy tekst z n_gramów*/
+		FILE *in = fopen("../gen/przegenerowany_tekst/przegenerowany_tekst.txt","w");
+		FILE *in2 = fopen("../gen/przegenerowany_tekst/dane_statystyczne_tekstu_po_generacji.txt","w");
+		FILE *in3 = fopen("../gen/przegenerowany_tekst/prawdopodobieństwo_wystąpienia_n_gramu_w_tekscie.txt","w");
+		gram =(n_gram*)malloc((l_slow - inn) *sizeof (n_gram));
+		if( gram == NULL){
+			fprintf(stderr, "Za mało pamięci\n");
+	                exit(EXIT_FAILURE);
+		}
+		for(i = 1; i<l_slow - inn ;i++){
+			gram[i] = stworz_n_gram(gram, gram2, inn, i, i);
+/*			for(j = 0;j<inn;j++){
+				printf("%s ",gram[i].prefiks[j]);	
+			}
+			printf("\n%s\n\n",gram[i].sufiks);	
+*/		gram[i] = oblicz_prawdopodobienstwo(&gram[i], l_slow - inn - 1);
+		}
+		
+		zapisz_prawdopodobienstow_n_gram(gram, in3, l_slow - inn, inn);
+		fclose(in3);
+		zapisz_dane_statystyczne_n_gram(gram, in2, l_slow - inn, inn);
+		fclose(in2);
+		zapisz_przegenerowany_tekst(gram, in, l_slow - inn, inn);
+		fclose(in);	
+	}
+/******************************tworzy tablice n_gramów, wszystko***************************************/
+
+
+	zwolnij_pamiec(atg,l_slow);	
+	zwolnij_n_gram2(gram2, l_slow - inn , inn); 
+	if(ing == 1)
+/*		zwolnij_n_gram(gram, l_slow - inn, inn);
+*/	if(ing == 2)
+		zwolnij_n_gram(gram3, inl , inn);
 /*	free(drzewo);	*/
 return 0;
 }

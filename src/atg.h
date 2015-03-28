@@ -16,7 +16,6 @@ typedef struct _n_gram{
 	int zliczenia_prefiks;
 	int zliczenia_sufiks;
 	int *wsk_na_sufiks;
-/*	int wielkosc_tab_wsk_sufiksow;*/
 	double p_wystapienia_prefiksu;
 	double p_wystapienia_sufiksu;
 	double p_wystapienia_n_gramu;
@@ -39,6 +38,10 @@ void zapisz_prawdopodobienstow_n_gram(n_gram *gram, FILE *in, int liczba_n_gramo
 
 void zapisz_dane_statystyczne_n_gram(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie);
 
+void zapisz_wylosowane_n_gramy(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie);
+
+void zapisz_przegenerowany_tekst(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie);
+
 atg_t stworz_slowo(atg_t *agt, int liczba_liter);
 
 atg_t *realloc_tab_slow(atg_t *atg, int size);
@@ -58,14 +61,14 @@ n_gram stworz_n_gram(n_gram *gram, n_gram *gram2, int ile_slow, int nr_n_gramu, 
 n_gram stworz_dane_o_n_gramie(n_gram *gram, atg_t *atg, int ile_slow, int nr_slowa );
 
 n_gram oblicz_prawdopodobienstwo(n_gram *gram, int l_n_gramow);
-/*
-void realloc_wsk_na_sufiks(n_gram *gram, int size);
 
-void kopiuj(int *tab_1, int *tab_2, int liczba_elementow);
-*/
+int losuj_sufiks(n_gram *gram, int los);
+
 n_gram stworz_prefiks(n_gram *gram, int l_liter_prefiks, int nr_slowa);
 
 n_gram stworz_sufiks(n_gram *gram, int l_liter_sufiks);
+
+void zwolnij_n_gram2(n_gram *gram, int wielkosc_tab_strukt, int rzad_n_gramu);
 
 void zwolnij_n_gram(n_gram *gram, int wielkosc_tab_strukt, int rzad_n_gramu);
 

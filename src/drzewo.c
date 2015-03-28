@@ -7,8 +7,6 @@
 
 drzewo_t wstaw_do_drzewa(drzewo_t t, n_gram *gram, int _rzad_n_gramu,  int cmp(const void *, const void *, int rzad_n_gramu)){
 	int i;
-	static int j;
-	static int tab[1024];
         if(t == NULL){
                 wezel_t *wezel = malloc(sizeof *wezel);
                 wezel->gram_drzewo = gram;
@@ -31,38 +29,8 @@ drzewo_t wstaw_do_drzewa(drzewo_t t, n_gram *gram, int _rzad_n_gramu,  int cmp(c
 			gram->zliczenia_sufiks = t->gram_drzewo->zliczenia_sufiks;
 		}
 
-/*		realloc_wsk_na_sufiks(t->gram_drzewo, t->gram_drzewo->zliczenia_prefiks);
-*/
-
-/*		tab[j] = t->gram_drzewo->wsk_na_sufiks[j] = t->gram_drzewo->index;
-		tab[j+1] = t->gram_drzewo->wsk_na_sufiks[j+1] = gram->index;
-*/	
-/*		realloc_wsk_na_sufiks(gram, gram->zliczenia_prefiks);*/
-
-/*		gram->wsk_na_sufiks[j] = t->gram_drzewo->index;
-		gram->wsk_na_sufiks[j+1] = gram->index;
-*/	
-			
-/*		kopiuj(t->gram_drzewo->wsk_na_sufiks, gram->wsk_na_sufiks, gram->zliczenia_prefiks);
-*/		
-/*		kopiuj( gram->wsk_na_sufiks, tab, j);
-		kopiuj( t->gram_drzewo->wsk_na_sufiks, tab, j);
-*/
-/*		printf("%d %d %d\n",t->gram_drzewo->zliczenia_prefiks,gram->zliczenia_prefiks,j);
-		j = j+1;
-*/
-/*		for(i = 0; i<gram->zliczenia_sufiks; i++)
-			printf("%d  %d aaa\n",gram->wsk_na_sufiks[i] ,t->gram_drzewo->index);
-		for(i = 0; i<t->gram_drzewo->zliczenia_sufiks; i++)
-			printf("%d  %d bbb\n",t->gram_drzewo->wsk_na_sufiks[i] ,gram->index);
-
-		printf("\n");
-*/
-	
 		t->srodek = wstaw_do_drzewa( t->srodek, gram, _rzad_n_gramu ,cmp); 
-/*		j = 0;
-		tab[0] = '\n';
-*/		return t;
+		return t;
         }
 
 }
