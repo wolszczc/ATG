@@ -12,10 +12,10 @@ typedef struct _atg_t{
 typedef struct _n_gram{
 	char **prefiks;
 	char *sufiks;
+	int *wsk_na_sufiks;
 	int index;
 	int zliczenia_prefiks;
 	int zliczenia_sufiks;
-	int *wsk_na_sufiks;
 	double p_wystapienia_prefiksu;
 	double p_wystapienia_sufiksu;
 	double p_wystapienia_n_gramu;
@@ -41,6 +41,10 @@ void zapisz_dane_statystyczne_n_gram(n_gram *gram, FILE *in, int liczba_n_gramow
 void zapisz_wylosowane_n_gramy(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie);
 
 void zapisz_przegenerowany_tekst(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie);
+
+void zapisz_konkretna_liczbe_slow(n_gram *gram, FILE *in, int liczba_slow, int liczba_slow_w_prefiksie);
+
+void zapisz_konkretna_liczbe_akapitow(n_gram *gram, FILE *in, int liczba_akapitow, int liczba_slow_w_prefiksie);
 
 atg_t stworz_slowo(atg_t *agt, int liczba_liter);
 
@@ -68,6 +72,8 @@ n_gram stworz_prefiks(n_gram *gram, int l_liter_prefiks, int nr_slowa);
 
 n_gram stworz_sufiks(n_gram *gram, int l_liter_sufiks);
 
+/*void zwolnij_n_gram3(n_gram *gram, int wielkosc_tab_strukt, int rzad_n_gramu);
+*/
 void zwolnij_n_gram2(n_gram *gram, int wielkosc_tab_strukt, int rzad_n_gramu);
 
 void zwolnij_n_gram(n_gram *gram, int wielkosc_tab_strukt, int rzad_n_gramu);

@@ -46,7 +46,6 @@ n_gram stworz_n_gram(n_gram *gram, n_gram *gram2, int ile_slow, int nr_n_gramu, 
 
 n_gram stworz_dane_o_n_gramie(n_gram *gram, atg_t *atg, int ile_slow, int nr_slowa ){
 	int i;
-	int j = 0;
 	int l_liter_prefiks;
         int l_liter_sufiks;
 
@@ -124,6 +123,16 @@ n_gram stworz_sufiks(n_gram *gram, int l_liter_sufiks){
                 exit(EXIT_FAILURE);
         }
 }
+/*void zwolnij_n_gram3(n_gram *gram, int wielkosc_tab_strukt, int rzad_n_gramu){
+	int i,j;
+	for(j = wielkosc_tab_strukt; j>1; j--){
+		for(i = rzad_n_gramu - 1; i>=0; i--)
+			free(gram[j].prefiks[i]);
+		free(gram[j].sufiks);
+		free(gram[j].prefiks);
+	}
+	free(gram);
+}*/
 
 void zwolnij_n_gram2(n_gram *gram, int wielkosc_tab_strukt, int rzad_n_gramu){
 	int i,j;

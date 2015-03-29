@@ -67,7 +67,7 @@ void zapisz_prawdopodobienstow_n_gram(n_gram *gram, FILE *in, int liczba_n_gramo
 	for(i = 1;i<liczba_n_gramow;i++){
 		for(j = 0; j<liczba_slow_w_prefiksie;j++)
 			fprintf(in,"%s ",gram[i].prefiks[j]);
-		fprintf(in," %.25f\t %.25f\n %s  %.25f\n\n",gram[i].p_wystapienia_prefiksu, gram[i].p_wystapienia_n_gramu , gram[i].sufiks, gram[i].p_wystapienia_sufiksu);
+		fprintf(in," %.10f\t %.10f\n %s  %.10f\n\n",gram[i].p_wystapienia_prefiksu, gram[i].p_wystapienia_n_gramu , gram[i].sufiks, gram[i].p_wystapienia_sufiksu);
 	}
 
 }
@@ -101,6 +101,45 @@ void zapisz_przegenerowany_tekst(n_gram *gram, FILE *in, int liczba_n_gramow, in
 		j = liczba_slow_w_prefiksie;
 		fprintf(in,"%s ",gram[i].sufiks);
 	}
+}
+
+void zapisz_konkretna_liczbe_slow(n_gram *gram, FILE *in, int liczba_slow, int liczba_slow_w_prefiksie){
+	int i;
+	int j;
+	int k;
+	for(i = 1; i < liczba_slow ; i++){
+		for(j;j<liczba_slow_w_prefiksie; j++){
+			fprintf(in,"%s ",gram[i].prefiks[j]);
+			k++;
+                }
+                j = liczba_slow_w_prefiksie;
+                fprintf(in,"%s ",gram[i].sufiks);
+		k++;
+		if(k == liczba_slow)
+			break;
+	}
+}
+
+
+void zapisz_konkretna_liczbe_akapitow(n_gram *gram, FILE *in, int liczba_akapitow, int liczba_slow_w_prefiksie){
+	int i;
+        int j;
+/*	int k;
+*/	for(i = 1; i < liczba_akapitow ; i++){
+                for(j;j<liczba_slow_w_prefiksie; j++){
+                        fprintf(in,"%s ",gram[i].prefiks[j]);
+/*			k++;
+*/		}
+                j = liczba_slow_w_prefiksie;
+                fprintf(in,"%s ",gram[i].sufiks);
+/*		k++;
+                if(k == 100){
+                        fprintf(in,"\n");
+			k = 0;
+		}
+*/	}
+
+
 }
 
 atg_t stworz_slowo(atg_t *atg, int liczba_liter){
