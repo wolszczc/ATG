@@ -1,0 +1,204 @@
+Ala  3
+ ma  3
+
+ma  15
+ kota  3
+
+kota  3
+ i  3
+
+i  6
+ ma  3
+
+ma  15
+ kota  3
+
+psa  3
+ i  3
+
+i  6
+ ma  3
+
+do  3
+ tego  3
+
+tego  3
+ ma  3
+
+ma  15
+ kota  3
+
+papuge  3
+ która  3
+
+która  3
+ ma  3
+
+ma  15
+ kota  3
+
+swój  3
+ własny  3
+
+własny  3
+ odtwarzacz  3
+
+odtwarzacz  3
+ mp3.  3
+
+mp3.  3
+ A  3
+
+A  3
+ Ola  3
+
+Ola  3
+ ma  3
+
+ma  15
+ kota  3
+
+rachunki  3
+ za  3
+
+za  3
+ prąd.  3
+
+prąd.  2
+ Ala  2
+
+Ala  3
+ ma  3
+
+ma  15
+ kota  3
+
+kota  3
+ i  3
+
+i  6
+ ma  3
+
+ma  15
+ kota  3
+
+psa  3
+ i  3
+
+i  6
+ ma  3
+
+do  3
+ tego  3
+
+tego  3
+ ma  3
+
+ma  15
+ kota  3
+
+papuge  3
+ która  3
+
+która  3
+ ma  3
+
+ma  15
+ kota  3
+
+swój  3
+ własny  3
+
+własny  3
+ odtwarzacz  3
+
+odtwarzacz  3
+ mp3.  3
+
+mp3.  3
+ A  3
+
+A  3
+ Ola  3
+
+Ola  3
+ ma  3
+
+ma  15
+ kota  3
+
+rachunki  3
+ za  3
+
+za  3
+ prąd.  3
+
+prąd.  2
+ Ala  2
+
+Ala  3
+ ma  3
+
+ma  15
+ kota  3
+
+kota  3
+ i  3
+
+i  6
+ ma  3
+
+ma  15
+ kota  3
+
+psa  3
+ i  3
+
+i  6
+ ma  3
+
+do  3
+ tego  3
+
+tego  3
+ ma  3
+
+ma  15
+ kota  3
+
+papuge  3
+ która  3
+
+która  3
+ ma  3
+
+ma  15
+ kota  3
+
+swój  3
+ własny  3
+
+własny  3
+ odtwarzacz  3
+
+odtwarzacz  3
+ mp3.  3
+
+mp3.  3
+ A  3
+
+A  3
+ Ola  3
+
+Ola  3
+ ma  3
+
+ma  15
+ kota  3
+
+rachunki  3
+ za  3
+
+za  3
+ prąd.  3
+

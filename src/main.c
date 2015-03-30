@@ -43,7 +43,7 @@ int main (int argc, char **argv){
 	char *progname = argv[0];
 	int inn = 2;
 	int inl = 100;
-	int ing = 1;
+	int ing = 0;
 	int ins = 0;
 	int ina = 0;
 	
@@ -100,7 +100,6 @@ int main (int argc, char **argv){
 		}		
 	}
 
-	
 	if( optind < argc && zmienna_spr_p == 0 && zmienna_spr_d == 0 ) {/*może być z tym problem, jak będzie kłopot z argumentami wywalić*/
 		fprintf( stderr, "\nZłe parametry!\n" );
 		for( ; optind < argc; optind++ )
@@ -110,7 +109,7 @@ int main (int argc, char **argv){
 		exit( EXIT_FAILURE );
 	}
 
-	if((ing !=1) && (ing !=2) && (ing !=3)){
+	if((ing !=0) && (ing !=1) && (ing !=2) && (ing !=3)){
 		fprintf(stderr,"Zły parametr g, możliwy do wyboru 1 lub 2\n");
 		exit( EXIT_FAILURE );
 	}
@@ -283,12 +282,14 @@ int main (int argc, char **argv){
 
 			for(i = 1; i<ins + 1 ;i++){
                       		gram4[i] = stworz_n_gram(gram4, gram2, inn, i, i);
-	                      	for(j = 0;j<inn;j++){
+/*	                      	for(j = 0;j<inn;j++){
                                 	printf("%s ",gram4[i].prefiks[j]);       
                         	}
                         	printf("\n%s\n\n",gram4[i].sufiks);      
-	              		gram4[i] = oblicz_prawdopodobienstwo(&gram4[i], ins);
+*/	              		gram4[i] = oblicz_prawdopodobienstwo(&gram4[i], ins);
                 	}
+
+			zapisz_przegenerowany_tekst(gram4, stdout, ins + 1, inn);/*pomocnicze wypisywanie*/
 
 			zapisz_konkretna_liczbe_slow(gram4, in, ins + 1, inn);
 			fclose(in);
@@ -315,6 +316,8 @@ int main (int argc, char **argv){
                                 printf("\n%s\n\n",gram5[i].sufiks);
                                 gram5[i] = oblicz_prawdopodobienstwo(&gram5[i], ina);
                         }
+	
+			zapisz_przegenerowany_tekst(gram5, stdout, ina + 1, inn);/*pomocnicze wyoisywanie*/
 
                         zapisz_konkretna_liczbe_akapitow(gram5, in2, ina + 1, inn);
                         fclose(in2);
@@ -327,6 +330,7 @@ int main (int argc, char **argv){
 		FILE *in = fopen("../gen/losowe_n_gramy/wylosowane_n_gramy.txt","w");
 		FILE *in2 = fopen("../gen/losowe_n_gramy/dane_statystyczne_wylosowanych_n_gramow.txt","w");
 		FILE *in3 = fopen("../gen/losowe_n_gramy/prawdopodobieństwo_wystąpienia_wylosowanego_n_gramu.txt","w");
+		inl++;
 		gram3 =(n_gram*)malloc(sizeof (n_gram) * inl);
 		if( gram3 == NULL){
 			fprintf(stderr, "Za mało pamięci\n");
@@ -339,11 +343,11 @@ int main (int argc, char **argv){
         		        a = (rand() % l_slow) - inn;
 		
 			gram3[i] = stworz_n_gram(gram3, gram2, inn, i, a);
-/*			for(j = 0;j<inn;j++){
+			for(j = 0;j<inn;j++){
 				printf("%s ",gram3[i].prefiks[j]);	
 			}
 			printf("\n%s\n\n",gram3[i].sufiks);		
-*/		
+		
 		gram3[i] = oblicz_prawdopodobienstwo(&gram3[i], inl);
 		}
 		zapisz_prawdopodobienstow_n_gram(gram3, in3, inl, inn);
