@@ -48,11 +48,84 @@ atg_t *czytaj_slowa(FILE *in, int *l_slow, int *start_size, atg_t *atg){
 	return atg;	
 }
 
+
+n_gram *czytaj_slowa_posrednie(FILE *in, int l_n_gramow, int *start_size, n_gram *gram, int inn){
+	
+	int dlugosc_slowa_tym;
+	int i = 0;
+	int j,j2;
+	int a;
+	char slowo_tym[1024]; /* słowo tymczasowe- przechwouje słowa z wejścia*/
+
+	if( gram == NULL){
+		fprintf(stderr, "Brak danych\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if (in != NULL){
+		for(j = 1; j<l_n_gramow; j++){
+                        gram[j].prefiks =(char**) malloc (inn * sizeof(gram->prefiks));
+                        if(gram[j].prefiks == NULL){
+				fprintf(stderr,"Błąd przy alokacji (brak pamięci!)\n");
+                                exit(EXIT_FAILURE);
+                        }
+			for(j2 = 0; j2 < inn; j2++){
+				fscanf(in,"%s", slowo_tym);
+				dlugosc_slowa_tym = strlen(slowo_tym);
+				if(dlugosc_slowa_tym >= 1024){
+                	                fprintf(stderr, "Zbyt długie słowa (dopuszczalna długość słowa = 1024)\n");
+        	                        exit(EXIT_FAILURE);
+	                        }
+				gram[j] = stworz_prefiks( &gram[j], dlugosc_slowa_tym, j2);	
+				strcpy(gram[j].prefiks[j2], slowo_tym);
+				slowo_tym[0] = '\0';
+			}
+		}
+		for(j = 1; j<l_n_gramow; j++){
+			fscanf(in,"%s", slowo_tym);
+			dlugosc_slowa_tym = strlen(slowo_tym);
+                        if(dlugosc_slowa_tym >= 1024){
+        	                fprintf(stderr, "Zbyt długie słowa (dopuszczalna długość słowa = 1024)\n");
+	                        exit(EXIT_FAILURE);
+                        }
+			gram[j] = stworz_sufiks(&gram[j],dlugosc_slowa_tym);
+			strcpy(gram[j].sufiks, slowo_tym);
+			slowo_tym[0] = '\0';
+		}
+		for(j = 1; j<l_n_gramow; j++){
+			fscanf(in,"%d", &dlugosc_slowa_tym);
+			gram[j].zliczenia_prefiks = dlugosc_slowa_tym;	
+			gram[j].index = j;
+			gram[j].wsk_na_sufiks = NULL;
+			gram[j].wsk_na_sufiks =(int*) malloc(gram[j].zliczenia_prefiks *sizeof(int));
+		}
+		for(j = 1; j<l_n_gramow; j++){
+                        fscanf(in,"%d", &dlugosc_slowa_tym);
+                        gram[j].zliczenia_sufiks = dlugosc_slowa_tym;
+                }
+		for(j = 1; j<l_n_gramow; j++){
+			if(gram[j].zliczenia_prefiks > 1){
+				for(j2 = 0;j2<gram[j].zliczenia_prefiks; j2++){
+					fscanf(in,"%d",&a);
+					gram[j].wsk_na_sufiks[j2] = a;
+				}
+			}
+		}
+
+	}else{
+		exit(EXIT_FAILURE);
+	}
+	
+	return gram;	
+}
+
 void zapisz_slowa(atg_t *atg, FILE *in, int *l_slow){
 	int i;
 	int j;
 	for(i = 1; i< *l_slow; i++){
 		fprintf(in,"%s ", atg[i].slowo);
+		if((i%10) == 8)
+			fprintf(in,"\n");
 /*		if(j == 10){
 			fprintf(in,"\n");
 			j = 0;
@@ -81,6 +154,43 @@ void zapisz_dane_statystyczne_n_gram(n_gram *gram, FILE *in, int liczba_n_gramow
                 fprintf(in," %d\n %s  %d\n\n",gram[i].zliczenia_prefiks, gram[i].sufiks, gram[i].zliczenia_sufiks);
         }
 }
+
+void zapisz_dane_plik_posredni(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie){
+	int i;
+        int j;
+        for(i = 1;i<liczba_n_gramow;i++){
+                for(j = 0; j<liczba_slow_w_prefiksie;j++)
+                        fprintf(in,"%s ",gram[i].prefiks[j]);
+                fprintf(in,"\n");
+	}	
+	for(i = 1;i<liczba_n_gramow;i++)
+                fprintf(in,"%s ",gram[i].sufiks);
+	fprintf(in,"\n");
+        for(i = 1;i<liczba_n_gramow;i++)
+                fprintf(in,"%d ",gram[i].zliczenia_prefiks);
+	fprintf(in,"\n");
+	for(i = 1;i<liczba_n_gramow;i++)
+                fprintf(in,"%d ",gram[i].zliczenia_sufiks);
+	fprintf(in,"\n");
+	for(i = 1;i<liczba_n_gramow;i++){
+		if(gram[i].zliczenia_prefiks > 1)
+			for(j = 0;j<gram[i].zliczenia_prefiks;j++)
+				fprintf(in,"%d ",gram[i].wsk_na_sufiks[j]);	
+	}
+		
+}
+
+/*
+void zapisz_dane_posrednie(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie){
+	int i;
+        int j;
+        for(i = 1;i<liczba_n_gramow;i++){
+                for(j = 0; j<liczba_slow_w_prefiksie;j++)
+                        fwrite(gram[i].prefiks[j], sizeof(gram[i].prefiks[j][0]), liczba_n_gramow, in);
+                fwrite(in," %d\n %s  %d\n\n",gram[i].zliczenia_prefiks, gram[i].sufiks, gram[i].zliczenia_sufiks);
+        }
+}
+*/
 void zapisz_wylosowane_n_gramy(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie){
 	int i;
         int j;
@@ -100,6 +210,8 @@ void zapisz_przegenerowany_tekst(n_gram *gram, FILE *in, int liczba_n_gramow, in
 		}
 		j = liczba_slow_w_prefiksie;
 		fprintf(in,"%s ",gram[i].sufiks);
+		if((i%10) == 8)
+			fprintf(in,"\n");
 	}
 }
 

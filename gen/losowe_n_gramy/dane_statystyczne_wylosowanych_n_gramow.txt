@@ -1,30 +1,300 @@
+ma  5
+ psa  1
+
+tego  1
+ ma  1
+
+rachunki  1
+ za  1
+
+i  2
+ do  1
+
 własny  1
  odtwarzacz  1
 
+za  1
+ prąd.  1
+
+ma  5
+ rachunki  1
+
+rachunki  1
+ za  1
+
+i  2
+ do  1
+
+która  1
+ ma  1
+
+rachunki  1
+ za  1
+
+ma  5
+ rachunki  1
+
+odtwarzacz  1
+ mp3.  1
+
+Ola  1
+ ma  1
+
+ma  5
+ kota  1
+
+kota  1
+ i  1
+
+i  2
+ ma  1
+
 psa  1
+ i  1
+
+Ala  1
+ ma  1
+
+mp3.  1
+ A  1
+
+tego  1
+ ma  1
+
+i  2
+ do  1
+
+rachunki  1
+ za  1
+
+i  2
+ do  1
+
+która  1
+ ma  1
+
+tego  1
+ ma  1
+
+ma  5
+ psa  1
+
+ma  5
+ własny  1
+
+i  2
+ do  1
+
+papuge  1
+ która  1
+
+ma  5
+ psa  1
+
+Ola  1
+ ma  1
+
+do  1
+ tego  1
+
+rachunki  1
+ za  1
+
+i  2
+ ma  1
+
+papuge  1
+ która  1
+
+Ala  1
+ ma  1
+
+i  2
+ do  1
+
+kota  1
+ i  1
+
+i  2
+ do  1
+
+ma  5
+ psa  1
+
+kota  1
+ i  1
+
+ma  5
+ rachunki  1
+
+Ala  1
+ ma  1
+
+odtwarzacz  1
+ mp3.  1
+
+ma  5
+ własny  1
+
+kota  1
  i  1
 
 kota  1
  i  1
 
+ma  5
+ rachunki  1
+
 A  1
  Ola  1
+
+ma  5
+ rachunki  1
+
+psa  1
+ i  1
+
+Ala  1
+ ma  1
+
+papuge  1
+ która  1
+
+ma  5
+ papuge  1
+
+kota  1
+ i  1
+
+Ala  1
+ ma  1
+
+tego  1
+ ma  1
+
+rachunki  1
+ za  1
+
+ma  5
+ rachunki  1
+
+i  2
+ ma  1
+
+Ala  1
+ ma  1
+
+tego  1
+ ma  1
+
+Ala  1
+ ma  1
+
+ma  5
+ papuge  1
 
 za  1
  prąd.  1
 
+rachunki  1
+ za  1
+
+za  1
+ prąd.  1
+
+i  2
+ ma  1
+
+ma  5
+ psa  1
+
+i  2
+ ma  1
+
+i  2
+ ma  1
+
+za  1
+ prąd.  1
+
+kota  1
+ i  1
+
+i  2
+ ma  1
+
+do  1
+ tego  1
+
+ma  5
+ rachunki  1
+
+kota  1
+ i  1
+
+ma  5
+ papuge  1
+
+kota  1
+ i  1
+
+ma  5
+ psa  1
+
+ma  5
+ psa  1
+
+i  2
+ do  1
+
+papuge  1
+ która  1
+
 odtwarzacz  1
  mp3.  1
 
-swój  1
- własny  1
+ma  5
+ papuge  1
 
-ma  4
+do  1
+ tego  1
+
+Ala  1
+ ma  1
+
+która  1
+ ma  1
+
+i  2
+ ma  1
+
+i  2
+ ma  1
+
+ma  5
  kota  1
 
 psa  1
  i  1
 
-kota  1
- i  1
+ma  5
+ rachunki  1
+
+odtwarzacz  1
+ mp3.  1
+
+mp3.  1
+ A  1
+
+papuge  1
+ która  1
+
+ma  5
+ własny  1
+
+Ala  1
+ ma  1
+
+A  1
+ Ola  1
 

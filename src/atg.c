@@ -23,7 +23,7 @@ n_gram stworz_n_gram(n_gram *gram, n_gram *gram2, int ile_slow, int nr_n_gramu, 
 	/*	printf("%s ",gram[nr_n_gramu].prefiks[i]);*/
 	}
 	if(gram2[los].zliczenia_prefiks > 1){
-		a = losuj_sufiks(gram2, los);
+		a = nr_n_gramu;
 		strcpy(slowo_tym, gram2[a].sufiks);	
 		gram->zliczenia_sufiks = gram2[a].zliczenia_sufiks;
 		l_liter_sufiks = strlen(slowo_tym);
@@ -50,10 +50,6 @@ n_gram stworz_dane_o_n_gramie(n_gram *gram, atg_t *atg, int ile_slow, int nr_slo
         int l_liter_sufiks;
 
 	gram->prefiks =(char**) malloc (ile_slow * sizeof(gram->prefiks));
-	if(gram->prefiks == NULL){
-                fprintf(stderr,"Błąd przy alokacji (brak pamięci!)\n");
-                exit(EXIT_FAILURE);
-	}
 	for(i = 0; i < ile_slow; i++){
 		l_liter_prefiks = strlen(atg[nr_slowa + i].slowo);
        	        *gram = stworz_prefiks( gram, l_liter_prefiks, i);
@@ -84,16 +80,6 @@ n_gram oblicz_prawdopodobienstwo(n_gram *gram, int l_n_gramow){
 	return *gram;
 }
 
-int losuj_sufiks(n_gram *gram, int los){
-	int a;
-	int b;
-	srand(time(NULL));
-	a = (rand() % gram[los].zliczenia_prefiks );
-	b = gram[los].wsk_na_sufiks[a];
-	
-	return b;
-}
-
 n_gram stworz_prefiks(n_gram *gram, int l_liter_prefiks, int nr_slowa){
 	if(gram != NULL){
 		gram->prefiks[nr_slowa] =(char*) malloc(l_liter_prefiks * sizeof(gram->prefiks));
@@ -109,6 +95,7 @@ n_gram stworz_prefiks(n_gram *gram, int l_liter_prefiks, int nr_slowa){
         }
 
 }
+
 n_gram stworz_sufiks(n_gram *gram, int l_liter_sufiks){
 	if(gram != NULL){
 		gram->sufiks =(char*) malloc(l_liter_sufiks * sizeof(gram->sufiks));

@@ -32,6 +32,8 @@ typedef struct _drzewo_t{
 /*czytnik*/
 atg_t *czytaj_slowa(FILE *in, int * l_slow, int * start_size, atg_t *atg);
 
+n_gram *czytaj_slowa_posrednie(FILE *in, int l_n_gramow, int *start_size, n_gram *gram, int inn);
+
 void zapisz_slowa(atg_t *atg, FILE *in, int *l_slow);
 
 void zapisz_prawdopodobienstow_n_gram(n_gram *gram, FILE *in, int liczba_n_gramow, int liczba_slow_w_prefiksie);
@@ -49,7 +51,9 @@ void zapisz_konkretna_liczbe_akapitow(n_gram *gram, FILE *in, int liczba_akapito
 atg_t stworz_slowo(atg_t *agt, int liczba_liter);
 
 atg_t *realloc_tab_slow(atg_t *atg, int size);
-
+/*
+n_gram *realloc_tab_slow_gram(n_gram *gram, int size);
+*/
 void zwolnij_pamiec(atg_t *atg, int l_slow);
 
 /*drzewo*/

@@ -1,204 +1,60 @@
-Ala  3
- ma  3
+Ala ma  1
+ kota  1
 
-ma  15
- kota  3
+ma kota  1
+ i  1
 
-kota  3
- i  3
+kota i  1
+ ma  1
 
-i  6
- ma  3
+i ma  1
+ psa  1
 
-ma  15
- kota  3
+ma psa  1
+ i  1
 
-psa  3
- i  3
+psa i  1
+ do  1
 
-i  6
- ma  3
+i do  1
+ tego  1
 
-do  3
- tego  3
+do tego  1
+ ma  1
 
-tego  3
- ma  3
+tego ma  1
+ papuge  1
 
-ma  15
- kota  3
+ma papuge  1
+ która  1
 
-papuge  3
- która  3
+papuge która  1
+ ma  1
 
-która  3
- ma  3
+która ma  1
+ własny  1
 
-ma  15
- kota  3
+ma własny  1
+ odtwarzacz  1
 
-swój  3
- własny  3
+własny odtwarzacz  1
+ mp3.  1
 
-własny  3
- odtwarzacz  3
+odtwarzacz mp3.  1
+ A  1
 
-odtwarzacz  3
- mp3.  3
+mp3. A  1
+ Ola  1
 
-mp3.  3
- A  3
+A Ola  1
+ ma  1
 
-A  3
- Ola  3
+Ola ma  1
+ rachunki  1
 
-Ola  3
- ma  3
+ma rachunki  1
+ za  1
 
-ma  15
- kota  3
-
-rachunki  3
- za  3
-
-za  3
- prąd.  3
-
-prąd.  2
- Ala  2
-
-Ala  3
- ma  3
-
-ma  15
- kota  3
-
-kota  3
- i  3
-
-i  6
- ma  3
-
-ma  15
- kota  3
-
-psa  3
- i  3
-
-i  6
- ma  3
-
-do  3
- tego  3
-
-tego  3
- ma  3
-
-ma  15
- kota  3
-
-papuge  3
- która  3
-
-która  3
- ma  3
-
-ma  15
- kota  3
-
-swój  3
- własny  3
-
-własny  3
- odtwarzacz  3
-
-odtwarzacz  3
- mp3.  3
-
-mp3.  3
- A  3
-
-A  3
- Ola  3
-
-Ola  3
- ma  3
-
-ma  15
- kota  3
-
-rachunki  3
- za  3
-
-za  3
- prąd.  3
-
-prąd.  2
- Ala  2
-
-Ala  3
- ma  3
-
-ma  15
- kota  3
-
-kota  3
- i  3
-
-i  6
- ma  3
-
-ma  15
- kota  3
-
-psa  3
- i  3
-
-i  6
- ma  3
-
-do  3
- tego  3
-
-tego  3
- ma  3
-
-ma  15
- kota  3
-
-papuge  3
- która  3
-
-która  3
- ma  3
-
-ma  15
- kota  3
-
-swój  3
- własny  3
-
-własny  3
- odtwarzacz  3
-
-odtwarzacz  3
- mp3.  3
-
-mp3.  3
- A  3
-
-A  3
- Ola  3
-
-Ola  3
- ma  3
-
-ma  15
- kota  3
-
-rachunki  3
- za  3
-
-za  3
- prąd.  3
+rachunki za  1
+ prąd.  1
 
